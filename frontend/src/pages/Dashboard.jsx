@@ -90,7 +90,7 @@ const Dashboard = ({ currentLang }) => {
       {error && <div className="alert alert-error">{error}</div>}
 
       {/* User Info & Target Exams Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '1.5rem', marginBottom: '2.5rem' }}>
         <div className="exam-card">
           <div className="exam-tag">{t.studentProfile}</div>
           <h2 style={{ fontSize: '1.35rem', margin: '0.4rem 0 0.85rem', color: 'var(--text-primary)' }}>{user?.name}</h2>
@@ -142,7 +142,7 @@ const Dashboard = ({ currentLang }) => {
         </div>
 
         {/* Stat Cards Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))', gap: '1.25rem' }}>
           <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)', textAlign: 'center' }}>
             <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{summary.totalVideos}</div>
             <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.35rem', fontWeight: 700 }}>{t.totalVideosStat}</div>
@@ -215,7 +215,7 @@ const Dashboard = ({ currentLang }) => {
       {completedList.length > 0 && (
         <div>
           <h2 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '1.25rem', color: 'var(--text-primary)' }}>{t.recentlyCompletedTitle}</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: '1.25rem' }}>
             {completedList.map((item) => {
               const vid = item.video;
               return (

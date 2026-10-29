@@ -32,6 +32,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-family);
   background-color: var(--bg-primary);
@@ -39,6 +43,7 @@ body {
   min-height: 100vh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 .app-container {
@@ -62,7 +67,8 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
+  gap: 1rem;
 }
 
 .brand-logo {
@@ -74,6 +80,16 @@ body {
   color: var(--text-primary);
   text-decoration: none;
   letter-spacing: -0.3px;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.brand-text-full {
+  display: inline;
+}
+
+.brand-text-short {
+  display: none;
 }
 
 .brand-icon {
@@ -245,7 +261,7 @@ body {
    ========================================================================= */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1.75rem;
   max-width: 1100px;
   margin: 2.5rem auto;
@@ -577,7 +593,7 @@ body {
    ========================================================================= */
 .video-player-grid {
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr 340px;
   gap: 2rem;
 }
 
@@ -847,12 +863,153 @@ body {
 }
 
 /* =========================================================================
+   HAMBURGER & MOBILE NAV
+   ========================================================================= */
+
+/* Desktop nav: visible inline */
+.nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: nowrap;
+}
+
+/* Hamburger button: hidden on desktop */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1.5px solid var(--border-color-darker);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 6px;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  z-index: 201;
+  position: relative;
+}
+
+.hamburger-btn:hover {
+  background: #f1f5f9;
+  border-color: var(--accent-primary);
+}
+
+.hamburger-bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  transform-origin: center;
+}
+
+/* Animate to X when open */
+.hamburger-open .hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger-open .hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger-open .hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Dark overlay behind mobile drawer */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  z-index: 198;
+  animation: fadeInOverlay 0.2s ease;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobile nav drawer (slides in from right) */
+.mobile-nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: min(300px, 85vw);
+  height: 100dvh;
+  background: #ffffff;
+  border-left: 1px solid var(--border-color);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 5rem 1.5rem 2rem;
+  z-index: 199;
+  overflow-y: auto;
+  transition: right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-nav-drawer.mobile-nav-open {
+  right: 0;
+}
+
+/* Mobile nav link styles (inside drawer) */
+.mobile-nav-drawer .nav-link,
+.mobile-nav-drawer .nav-link-subtle {
+  display: block;
+  font-size: 1.05rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.mobile-nav-drawer button.nav-link {
+  width: 100%;
+  text-align: left;
+  border-radius: 0;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 0;
+}
+
+.mobile-nav-drawer .btn-primary-sm {
+  display: block;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.mobile-nav-drawer .admin-badge-link {
+  display: block;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+}
+
+.mobile-nav-drawer .lang-switcher {
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+/* =========================================================================
    RESPONSIVE BREAKPOINTS
    ========================================================================= */
+
+/* ---- 920px: Video grid, About section, Navbar ---- */
 @media (max-width: 920px) {
   .video-player-grid {
     grid-template-columns: 1fr;
   }
+
   .about-card-wrapper {
     grid-template-columns: 1fr;
     text-align: center;
@@ -863,48 +1020,175 @@ body {
   .qualifications-list {
     justify-content: center;
   }
+
   .navbar {
     padding: 0.85rem 1.25rem;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
-  .brand-logo {
-    font-size: 1.15rem;
-  }
-  .navbar nav {
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    width: 100%;
-    justify-content: space-between;
-  }
+
   .hero-title {
     font-size: 2.1rem;
   }
   .hero-subtitle {
     font-size: 1rem;
   }
+
+  /* Admin analytics cards: reduce minmax to avoid overflow */
+  .admin-analytics-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
+/* ---- 768px: Hamburger kicks in, tablet layout ---- */
+@media (max-width: 768px) {
+  /* Show hamburger, hide desktop nav */
+  .nav-desktop {
+    display: none !important;
+  }
+  .hamburger-btn {
+    display: flex;
+  }
+  .mobile-nav-drawer {
+    display: flex;
+  }
+  .mobile-nav-overlay {
+    display: block;
+  }
+
+  /* Shorter brand name on mobile */
+  .brand-text-full {
+    display: none;
+  }
+  .brand-text-short {
+    display: inline;
+  }
+  .brand-logo {
+    font-size: 1.1rem;
+  }
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  /* Admin pages */
+  .admin-container-spacious {
+    padding: 1.5rem 1rem;
+  }
+  .admin-header-spacious h1 {
+    font-size: 1.75rem;
+  }
+  .admin-header-spacious p {
+    font-size: 0.95rem;
+  }
+  .admin-card-large {
+    padding: 1.5rem;
+  }
+  .admin-modal-large {
+    padding: 1.5rem !important;
+  }
+
+  /* About section: switch to single column earlier */
+  .about-card-wrapper {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 1.75rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 3rem 1rem 1.5rem;
+  }
+  .hero-title {
+    font-size: 1.9rem;
+  }
+
+  /* Page headings */
+  .admin-header-spacious h1 {
+    font-size: 1.65rem;
+  }
+}
+
+/* ---- 640px: Mobile layout ---- */
 @media (max-width: 640px) {
   .hero {
     padding: 2.5rem 1rem 1rem;
   }
   .hero-title {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
+    letter-spacing: -0.2px;
   }
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Auth cards */
   .auth-card,
   .auth-card-light {
-    padding: 2rem 1.5rem;
+    padding: 1.75rem 1.25rem;
     border-radius: var(--radius-md);
   }
+  .auth-header h2 {
+    font-size: 1.55rem;
+  }
+
+  /* Language buttons */
   .lang-btn {
     padding: 4px 10px;
     font-size: 0.8rem;
   }
+
+  /* About card & contact */
   .about-card-wrapper {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
   .contact-grid {
     grid-template-columns: 1fr;
+  }
+  .about-header h2 {
+    font-size: 1.75rem;
+  }
+
+  /* Qualification tag text wrapping */
+  .qualification-tag {
+    font-size: 0.82rem;
+    padding: 5px 10px;
+    word-break: break-word;
+  }
+
+  /* Admin pages on small mobile */
+  .admin-container-spacious {
+    padding: 1.25rem 0.85rem;
+  }
+  .admin-header-spacious h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Content page headings */
+  h1[style*="2.2rem"],
+  h1[style*="2.25rem"],
+  h1[style*="2.4rem"] {
+    font-size: 1.65rem !important;
+  }
+}
+
+/* ---- 400px: Very narrow phones ---- */
+@media (max-width: 400px) {
+  .navbar {
+    padding: 0.7rem 0.9rem;
+  }
+  .brand-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+  .brand-logo {
+    font-size: 1rem;
+  }
+  .hero-title {
+    font-size: 1.45rem;
+  }
+  .auth-card,
+  .auth-card-light {
+    padding: 1.5rem 1rem;
   }
 }

@@ -66,12 +66,12 @@ const AboutSection = ({ currentLang }) => {
           <div className="about-photo-col">
             <div className="about-photo-frame">
               <img
-                src="/Profilephoto.jpeg"
+                src="/Profilephoto.png"
                 alt={t.name}
                 className="about-photo-img"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = 'Profilephoto.jpeg';
+                  e.target.src = 'Profilephoto.png';
                 }}
               />
             </div>

@@ -234,7 +234,8 @@ const Topics = ({ currentLang }) => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.75rem',
-                    marginBottom: '0.4rem'
+                    marginBottom: '0.4rem',
+                    flexWrap: 'wrap'
                   }}
                 >
                   <span
@@ -298,7 +299,7 @@ const Topics = ({ currentLang }) => {
                     <div
                       style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
                         gap: '1.25rem'
                       }}
                     >
@@ -436,7 +437,7 @@ const Topics = ({ currentLang }) => {
                     <div
                       style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
                         gap: '1rem'
                       }}
                     >

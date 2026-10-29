@@ -146,9 +146,10 @@ const AdminDashboard = ({ currentLang }) => {
           <div style={{ marginBottom: '3.5rem' }}>
             {/* Publishing & Learning Progress Split Grid */}
             <div
+              className="admin-analytics-grid"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(360px, 100%), 1fr))',
                 gap: '1.75rem',
                 marginBottom: '2.5rem'
               }}
@@ -429,7 +430,7 @@ const AdminDashboard = ({ currentLang }) => {
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
                     gap: '1.25rem'
                   }}
                 >
@@ -512,7 +513,7 @@ const AdminDashboard = ({ currentLang }) => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
           gap: '1.75rem'
         }}
       >
