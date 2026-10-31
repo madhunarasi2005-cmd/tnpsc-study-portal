@@ -22,8 +22,8 @@ const AboutSection = ({ currentLang }) => {
       contactTitle: 'Contact & Student Support',
       emailLabel: 'Email:',
       emailVal: 'asm2007feb@gmail.com',
-      phoneLabel: 'Helpline / WhatsApp:',
-      phoneVal: '+91 98765 43210'
+      phoneLabel: 'Call / WhatsApp:',
+      phoneVal: '+91 97869 97666'
     },
     ta: {
       badge: 'ஆசிரியை & வழிகாட்டி',
@@ -45,8 +45,8 @@ const AboutSection = ({ currentLang }) => {
       contactTitle: 'தொடர்பு விவரங்கள்',
       emailLabel: 'மின்னஞ்சல்:',
       emailVal: 'asm2007feb@gmail.com',
-      phoneLabel: 'உதவி எண் / வாட்ஸ்அப்:',
-      phoneVal: '+91 98765 43210'
+      phoneLabel: 'போன் எண் / வாட்ஸ்அப்:',
+      phoneVal: '+91 97869 97666'
     }
   };
 
